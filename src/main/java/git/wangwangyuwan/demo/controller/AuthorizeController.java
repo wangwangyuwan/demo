@@ -46,11 +46,12 @@ public class AuthorizeController {
 
         String token = gitHubProvider.getAccessToken(accessTokenDTO);
         GitHubUserDTO githubUser = gitHubProvider.getUserInfo(token);
-        if (null != githubUser){
+        if (null != githubUser && null != githubUser.getId()){
             User user = new User();
             user.setName(githubUser.getName());
             user.setToken(UUID.randomUUID().toString());
             user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setAvatarUrl(githubUser.getAvatar_url());
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.addUser(user);
