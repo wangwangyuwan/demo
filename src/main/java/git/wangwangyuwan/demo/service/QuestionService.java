@@ -14,8 +14,10 @@ import java.util.List;
 
 @Service
 public class QuestionService {
+
     @Autowired
     private QuestionMapper questionMapper;
+
     @Autowired
     private UserMapper userMapper;
 
@@ -35,8 +37,29 @@ public class QuestionService {
         return questionDTOS;
     }
 
-    public List<Question> getQuestionByPage(int page, int size) {
+    public List<QuestionDTO> getQuestionByPage(int page, int size) {
 
-        return questionMapper.findListByPage(page, size);
+        return getQuestionDTOList(questionMapper.findListByPage(page, size));
+    }
+
+    public QuestionDTO getQuestionDTO(String id) {
+        return getQuestionDTO(questionMapper.getById(id));
+    }
+
+    public List<QuestionDTO> list(Integer userId, Integer pageIndex, Integer pageSize) {
+        return getQuestionDTOList(questionMapper.findListById(userId,pageIndex,pageSize));
+    }
+
+    public Integer getTotalCount() {
+        return questionMapper.getTotalCount();
+    }
+
+    public List<QuestionDTO> findListByPage(Integer offset, Integer pageSize) {
+
+        return getQuestionDTOList(questionMapper.findListByPage(offset,pageSize));
+    }
+
+    public Integer getTotalCountByUser(int userId) {
+        return questionMapper.getTotalCountByUser(userId);
     }
 }

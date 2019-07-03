@@ -17,8 +17,6 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private QuestionMapper questionMapper;
-    @Autowired
     private QuestionService questionService;
     @GetMapping("/")
     public String sayHello(HttpServletRequest request,
@@ -29,9 +27,8 @@ public class IndexController {
 
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer offset = pageSize*(pageIndex-1);
-        List<QuestionDTO> questionList =
-                questionService.getQuestionDTOList(questionMapper.findListByPage(offset,pageSize));
-        paginationDTO.setPagination(questionMapper.getTotalCount(),pageIndex,pageSize);
+        List<QuestionDTO> questionList = questionService.findListByPage(offset,pageSize);
+        paginationDTO.setPagination(questionService.getTotalCount(),pageIndex,pageSize);
         paginationDTO.setList(questionList);
         model.addAttribute("pagination",paginationDTO);
         return "index";

@@ -22,4 +22,13 @@ public interface QuestionMapper {
 
     @Select("select count(1) from question ")
     int getTotalCount();
+
+    @Select("select * from question where id = #{id}")
+    Question getById(String id);
+
+    @Select("select * from question where creator = #{creator} order by id desc limit #{offset},#{size}")
+    List<Question> findListById(@Param(value = "creator") int userId, @Param(value = "offset") int offset, @Param(value = "size") int size);
+
+    @Select("select count(1) from question where creator = #{creator}")
+    Integer getTotalCountByUser(@Param(value = "creator") int userId);
 }
