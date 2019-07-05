@@ -43,7 +43,11 @@ public class QuestionService {
     }
 
     public QuestionDTO getQuestionDTO(String id) {
-        return getQuestionDTO(questionMapper.getById(id));
+
+        QuestionDTO questionDTO = getQuestionDTO(questionMapper.getById(id));
+        User user = userMapper.findByID(questionDTO.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
     }
 
     public List<QuestionDTO> list(Integer userId, Integer pageIndex, Integer pageSize) {

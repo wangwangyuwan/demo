@@ -4,6 +4,7 @@ import git.wangwangyuwan.demo.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 @Mapper
@@ -16,4 +17,9 @@ public interface UserMapper {
 
     @Select("select * from user where id=#{id}")
     User findByID(Integer id);
+
+    @Select("select * from user where account_id=#{accountId}")
+    User findByAccountId(String accountId);
+    @Update("update user set avatar_url = #{avatarUrl},token = #{token},gmt_modified = #{gmtModified} where id = #{id}")
+    void update(User user);
 }

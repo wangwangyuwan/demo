@@ -21,7 +21,7 @@
       <DataType>INTEGER(10)|4s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5574D4FE_0E9A_4404_A861_77542BAAF70A)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4579A327_BE7D_4E0B_80B3_2BE9F2D237A3)</DefaultExpression>
     </column>
     <column id="9" parent="5" name="TITLE">
       <Position>2</Position>
@@ -77,7 +77,7 @@
       <DataType>INTEGER(10)|4s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_E697EC2F_B089_40A8_AF7F_3608EBCFBF51)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_113EBDCF_C2F5_4CCD_B9CC_6726007C4CCC)</DefaultExpression>
     </column>
     <column id="21" parent="6" name="ACCOUNT_ID">
       <Position>2</Position>

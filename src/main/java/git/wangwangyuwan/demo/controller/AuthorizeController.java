@@ -3,9 +3,9 @@ package git.wangwangyuwan.demo.controller;
 
 import git.wangwangyuwan.demo.dto.AccessTokenDTO;
 import git.wangwangyuwan.demo.dto.GitHubUserDTO;
-import git.wangwangyuwan.demo.mapper.UserMapper;
 import git.wangwangyuwan.demo.model.User;
 import git.wangwangyuwan.demo.provider.GitHubProvider;
+import git.wangwangyuwan.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class AuthorizeController {
     private String redirectUrl;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -52,9 +52,8 @@ public class AuthorizeController {
             user.setToken(UUID.randomUUID().toString());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatar_url());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtCreate());
-            userMapper.addUser(user);
+
+            userService.createOrUpdate(user);
             response.addCookie(new Cookie("token",user.getToken()));
             return "redirect:/";
 
@@ -65,5 +64,14 @@ public class AuthorizeController {
 
         }
 
+    }
+    @GetMapping("/logOut")
+    public String logOut(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

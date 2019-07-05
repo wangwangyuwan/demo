@@ -50,7 +50,6 @@ public class GitHubProvider {
             String userStr = response.body().string();
             GitHubUserDTO user = JSON.parseObject(userStr, GitHubUserDTO.class);
             return user;
-
         } catch (IOException e) {
             e.printStackTrace();
         }
