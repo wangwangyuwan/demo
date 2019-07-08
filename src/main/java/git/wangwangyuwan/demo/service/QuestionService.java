@@ -4,7 +4,9 @@ import git.wangwangyuwan.demo.dto.QuestionDTO;
 import git.wangwangyuwan.demo.mapper.QuestionMapper;
 import git.wangwangyuwan.demo.mapper.UserMapper;
 import git.wangwangyuwan.demo.model.Question;
+import git.wangwangyuwan.demo.model.QuestionExample;
 import git.wangwangyuwan.demo.model.User;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,7 @@ public class QuestionService {
     private UserMapper userMapper;
 
     public QuestionDTO getQuestionDTO(Question source) {
-        User user = userMapper.findByID(source.getCreator());
+        User user = userMapper.selectByPrimaryKey(source.getCreator());
         QuestionDTO target = new QuestionDTO();
         BeanUtils.copyProperties(source, target);
         target.setUser(user);
@@ -39,31 +41,46 @@ public class QuestionService {
 
     public List<QuestionDTO> getQuestionByPage(int page, int size) {
 
-        return getQuestionDTOList(questionMapper.findListByPage(page, size));
+        QuestionExample example = new QuestionExample();
+        return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(example,new RowBounds(page,size)));
     }
 
     public QuestionDTO getQuestionDTO(String id) {
 
-        QuestionDTO questionDTO = getQuestionDTO(questionMapper.getById(id));
-        User user = userMapper.findByID(questionDTO.getCreator());
+        QuestionDTO questionDTO = getQuestionDTO(questionMapper.selectByPrimaryKey(Integer.valueOf(id)));
+        User user = userMapper.selectByPrimaryKey(questionDTO.getCreator());
         questionDTO.setUser(user);
         return questionDTO;
     }
 
     public List<QuestionDTO> list(Integer userId, Integer pageIndex, Integer pageSize) {
-        return getQuestionDTOList(questionMapper.findListById(userId,pageIndex,pageSize));
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(userId);
+        return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(example,new RowBounds(pageIndex,pageSize)));
     }
 
-    public Integer getTotalCount() {
-        return questionMapper.getTotalCount();
+    public int getTotalCount() {
+        return Integer.valueOf(String.valueOf(questionMapper.countByExample(new QuestionExample())));
     }
 
     public List<QuestionDTO> findListByPage(Integer offset, Integer pageSize) {
 
-        return getQuestionDTOList(questionMapper.findListByPage(offset,pageSize));
+        return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(new QuestionExample(),new RowBounds(offset,pageSize)));
     }
 
-    public Integer getTotalCountByUser(int userId) {
-        return questionMapper.getTotalCountByUser(userId);
+    public int getTotalCountByUser(int userId) {
+        QuestionExample example = new QuestionExample();
+        example.createCriteria().andCreatorEqualTo(userId);
+        return Integer.valueOf(String.valueOf(questionMapper.countByExample(example)));
+    }
+
+    public void createOrUpdate(Question question) {
+        if (null != question.getId()){
+            QuestionExample questionExample = new QuestionExample();
+            questionExample.createCriteria().andIdEqualTo(question.getId());
+            questionMapper.updateByExample(question,questionExample);
+        }else {
+            questionMapper.insert(question);
+        }
     }
 }
