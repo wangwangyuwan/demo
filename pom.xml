@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <eureka.client.version>0.0.1-SNAPSHOT</eureka.client.version>
     </properties>
 
     <dependencies>
@@ -71,6 +72,12 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency><!---->
+
+<!--        <dependency>-->
+<!--            <groupId>com.yuwan.eureka</groupId>-->
+<!--            <artifactId>client</artifactId>-->
+<!--            <version>${eureka.client.version}</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 

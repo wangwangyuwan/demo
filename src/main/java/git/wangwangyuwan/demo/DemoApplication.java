@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("git.wangwangyuwan.demo.mapper")
+//@EnableEurekaClient
 public class DemoApplication {
 
     public static void main(String[] args) {
