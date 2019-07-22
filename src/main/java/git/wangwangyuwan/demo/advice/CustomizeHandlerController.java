@@ -11,7 +11,7 @@ public class CustomizeHandlerController   {
     @ExceptionHandler(Exception.class)
     ModelAndView handleControllerException(Throwable e, Model model) {
         if(e instanceof CustomizeException){
-            model.addAttribute("message",((CustomizeException) e).getMessage());
+            model.addAttribute("message",((CustomizeException) e).getErrorCode().getMessage());
         }else{
             model.addAttribute("message","服务器太热了，稍后再试试！");
 

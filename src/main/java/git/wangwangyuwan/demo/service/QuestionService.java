@@ -3,6 +3,7 @@ package git.wangwangyuwan.demo.service;
 import git.wangwangyuwan.demo.dto.QuestionDTO;
 import git.wangwangyuwan.demo.exception.CustomizeErrorCode;
 import git.wangwangyuwan.demo.exception.CustomizeException;
+import git.wangwangyuwan.demo.mapper.QuestionExtMapper;
 import git.wangwangyuwan.demo.mapper.QuestionMapper;
 import git.wangwangyuwan.demo.mapper.UserMapper;
 import git.wangwangyuwan.demo.model.Question;
@@ -21,6 +22,8 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -93,5 +96,9 @@ public class QuestionService {
         } else {
             questionMapper.insert(question);
         }
+    }
+
+    public void incViewCount(String id) {
+        questionExtMapper.incViewCount(Integer.valueOf(id));
     }
 }
