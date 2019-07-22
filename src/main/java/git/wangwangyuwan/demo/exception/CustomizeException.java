@@ -2,13 +2,22 @@ package git.wangwangyuwan.demo.exception;
 
 public class CustomizeException extends RuntimeException {
 
-    private ICustomizeErrorCode errorCode;
+    private String code;
+    private String message;
 
     public CustomizeException(ICustomizeErrorCode errorCode) {
-        this.errorCode = errorCode;
+        this.code = errorCode.getCode();
+        this.message = errorCode.getMessage();
     }
 
-    public ICustomizeErrorCode getErrorCode() {
-        return errorCode;
+    public String getCode() {
+        return code;
     }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+
 }
