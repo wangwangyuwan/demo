@@ -1,7 +1,6 @@
 package git.wangwangyuwan.demo.controller;
 
 import git.wangwangyuwan.demo.exception.CustomizeErrorCode;
-import git.wangwangyuwan.demo.mapper.CommentMapper;
 import git.wangwangyuwan.demo.model.Comment;
 import git.wangwangyuwan.demo.model.User;
 import git.wangwangyuwan.demo.service.CommentService;
@@ -32,7 +31,7 @@ public class CommentController {
         Comment comment = new Comment();
         comment.setCommentator(user.getId());
         comment.setParentId(1L);
-        comment.setCommentator(1);
+        comment.setCommentator(1L);
         comment.setGmtCreate(System.currentTimeMillis());
         comment.setGmtModified(comment.getGmtCreate());
         comment.setType(1);

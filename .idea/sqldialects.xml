@@ -5,5 +5,10 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V2__add_bio_col_to_user_table.sql" dialect="H2" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V3__create_question_table.sql" dialect="H2" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V4__add_avatar_url_col_to_user_table.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V5__create_comment_table.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V6__add_content_col_to_comment.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V7__Change_id_column_type.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V8__Change_creator_column_type.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/db/migration/V9__Change_id_column_auto.sql" dialect="H2" />
   </component>
 </project>

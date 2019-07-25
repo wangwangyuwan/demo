@@ -56,9 +56,9 @@ public class QuestionService {
         return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(example, new RowBounds(page, size)));
     }
 
-    public QuestionDTO getQuestionDTO(String id)  {
+    public QuestionDTO getQuestionDTO(Long id)  {
 
-        QuestionDTO questionDTO = getQuestionDTO(questionMapper.selectByPrimaryKey(Integer.valueOf(id)));
+        QuestionDTO questionDTO = getQuestionDTO(questionMapper.selectByPrimaryKey(id));
         if (null == questionDTO) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
@@ -67,7 +67,7 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public List<QuestionDTO> list(Integer userId, Integer pageIndex, Integer pageSize) {
+    public List<QuestionDTO> list(Long userId, Integer pageIndex, Integer pageSize) {
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
         return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(example, new RowBounds(pageIndex, pageSize)));
@@ -82,7 +82,7 @@ public class QuestionService {
         return getQuestionDTOList(questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds(offset, pageSize)));
     }
 
-    public int getTotalCountByUser(int userId) {
+    public int getTotalCountByUser(Long userId) {
         QuestionExample example = new QuestionExample();
         example.createCriteria().andCreatorEqualTo(userId);
         return Integer.valueOf(String.valueOf(questionMapper.countByExample(example)));
@@ -98,7 +98,7 @@ public class QuestionService {
         }
     }
 
-    public void incViewCount(String id) {
-        questionExtMapper.incViewCount(Integer.valueOf(id));
+    public void incViewCount(Question question) {
+        questionExtMapper.incViewCount(question);
     }
 }

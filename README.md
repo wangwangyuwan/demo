@@ -17,3 +17,6 @@ The following guides illustrate how to use some features concretely:
 mvn flyway:migrate
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
+
+上下文切换：给线程分配CPU时间片（0~100ms），交替执行任务
+当数据在百万以下，单线程的效率高于多线程，上下文切换消耗时间
